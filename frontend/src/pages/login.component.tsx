@@ -1,13 +1,19 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { FaSignInAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 import { toast } from "react-toastify";
 
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../features/auth/auth.slice.ts";
+import { login, reset } from "../features/auth/auth.slice.ts";
+
+import SpinnerComponent from "../components/spinner.component.tsx";
 
 export default function LoginComponent() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, isSuccess, isLoading, errorMessage } = useSelector(
+
+  const { user, isSuccess, isLoading, isError, message } = useSelector(
     (state) => state.auth,
   );
 
@@ -30,6 +36,22 @@ export default function LoginComponent() {
 
     dispatch(login({ email, password }));
   }
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess || user) {
+      console.log("isSuccess", isSuccess);
+      console.log("user", user);
+      navigate("/");
+    }
+
+    dispatch(reset());
+  }, [isError, isSuccess, user, message]);
+
+  if (isLoading) return <SpinnerComponent />;
 
   return (
     <>

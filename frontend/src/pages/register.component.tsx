@@ -1,10 +1,13 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
 
+import SpinnerComponent from "../components/spinner.component";
+
 import { useSelector, useDispatch } from "react-redux";
 import { register, reset } from "../features/auth/auth.slice";
-import { useNavigate } from "react-router-dom";
 
 export default function RegisterComponent() {
   const navigate = useNavigate();
@@ -51,7 +54,9 @@ export default function RegisterComponent() {
     }
 
     dispatch(reset());
-  }, [isError, isSuccess, user, message, navigate, dispatch]);
+  }, [isError, isSuccess, user, message]);
+
+  if (isLoading) return <SpinnerComponent />;
 
   return (
     <>
