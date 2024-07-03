@@ -1,6 +1,7 @@
 const express = require("express");
 const colors = require("colors");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const sequelize = require("./database/db.config");
 
 const errorMiddleware = require("./middleware/error.middleware");
@@ -27,6 +28,7 @@ sequelize
   .then(() => console.log("All models were synchronized successfully."));
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/v1/users", userRouter);
 
