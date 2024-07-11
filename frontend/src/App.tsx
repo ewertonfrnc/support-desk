@@ -12,6 +12,7 @@ import LoginComponent from "./pages/login.component.tsx";
 import NewTicketComponent from "./pages/new-ticket.component.tsx";
 import PrivateRouteComponent from "./components/private-route.component.tsx";
 import TicketsComponent from "./pages/tickets.component.tsx";
+import TicketComponent from "./pages/ticket.component.tsx";
 
 function App() {
   return (
@@ -31,6 +32,10 @@ function App() {
 
             <Route path="/tickets" element={<PrivateRouteComponent />}>
               <Route path="/tickets" element={<TicketsComponent />} />
+            </Route>
+
+            <Route path="/ticket/:id" element={<PrivateRouteComponent />}>
+              <Route path="/ticket/:id" element={<TicketComponent />} />
             </Route>
           </Routes>
         </div>

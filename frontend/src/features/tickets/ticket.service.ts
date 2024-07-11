@@ -19,6 +19,16 @@ class ticketService {
 
     return data;
   }
+
+  async getTicket(ticketId, token) {
+    const { data } = await api().get(`/tickets/${ticketId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return data.ticket;
+  }
 }
 
 export default new ticketService();
