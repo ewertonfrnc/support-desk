@@ -29,6 +29,20 @@ class ticketService {
 
     return data.ticket;
   }
+
+  async closeTicket(ticketId, token) {
+    const { data } = await api().put(
+      `/tickets/${ticketId}`,
+      { status: "closed" },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return data.ticket;
+  }
 }
 
 export default new ticketService();

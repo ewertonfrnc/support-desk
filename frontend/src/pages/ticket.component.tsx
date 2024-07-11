@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { useAppSelector, useAppDispatch } from "../app/hooks.ts";
-import { getTicket, reset } from "../features/tickets/ticket.slice.ts";
+import { getTicket, closeTicket } from "../features/tickets/ticket.slice.ts";
 
 import { toast } from "react-toastify";
 
@@ -13,10 +13,17 @@ type Props = {};
 export default function TicketComponent(props: Props) {
   const { id } = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const { ticket, isLoading, isSuccess, isError, message } = useAppSelector(
     (state) => state.tickets,
   );
+
+  function onTicketClose() {
+    dispatch(closeTicket(ticket.id));
+    toast.success("Ticket fechado");
+    navigate("/tickets");
+  }
 
   useEffect(() => {
     if (isError) {
@@ -32,7 +39,7 @@ export default function TicketComponent(props: Props) {
 
   return (
     <div className="ticket-page">
-      <div className="ticket-header">
+      <header className="ticket-header">
         <BackButtonComponent url={"/tickets"} />
 
         <h2>
@@ -42,10 +49,9 @@ export default function TicketComponent(props: Props) {
           </span>
         </h2>
 
-        <h3>
-          Data de submissão:{" "}
-          {new Date(ticket.createdAt).toLocaleString("pt-BR")}
-        </h3>
+        <h3>Criado em: {new Date(ticket.createdAt).toLocaleString("pt-BR")}</h3>
+
+        <h3>Produto: {ticket.product}</h3>
 
         <hr />
 
@@ -53,7 +59,13 @@ export default function TicketComponent(props: Props) {
           <h3>Descrição do problema</h3>
           <p>{ticket.description}</p>
         </div>
-      </div>
+      </header>
+
+      {ticket.status !== "closed" && (
+        <button className="btn btn-block btn-danger" onClick={onTicketClose}>
+          Fechar ticket
+        </button>
+      )}
     </div>
   );
 }
