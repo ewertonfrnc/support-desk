@@ -57,7 +57,6 @@ exports.register = asyncHandler(async (request, response) => {
 // @access  public
 exports.login = asyncHandler(async (request, response) => {
   const { email, password } = request.body;
-  console.log(request.body);
 
   const user = await User.scope("withPassword").findOne({ where: { email } });
 
