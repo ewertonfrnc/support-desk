@@ -1,3 +1,4 @@
+import React from "react";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { FaSignInAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -43,8 +44,6 @@ export default function LoginComponent() {
     }
 
     if (isSuccess || user) {
-      console.log("isSuccess", isSuccess);
-      console.log("user", user);
       navigate("/");
     }
 
@@ -94,7 +93,7 @@ export default function LoginComponent() {
           </div>
 
           <div className="form-group">
-            <button className="btn btn-block">Cadastrar</button>
+            <button className="btn btn-block">Entrar</button>
           </div>
         </form>
       </section>
