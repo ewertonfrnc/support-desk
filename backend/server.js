@@ -8,6 +8,7 @@ const errorMiddleware = require("./middleware/error.middleware");
 
 const userRouter = require("./routes/user.route");
 const ticketRouter = require("./routes/ticket.route");
+const noteRouter = require("./routes/note.route");
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use(cors());
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/tickets", ticketRouter);
+app.use("/api/v1/notes", noteRouter);
 
 app.use(errorMiddleware.errorHandler);
 

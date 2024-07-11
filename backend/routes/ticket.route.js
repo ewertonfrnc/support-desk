@@ -3,7 +3,10 @@ const express = require("express");
 const authMiddleware = require("../middleware/auth.middleware");
 const ticketsController = require("../controllers/ticket.controller");
 
+const noteRouter = require("./note.route");
+
 const ticketRouter = express.Router();
+ticketRouter.use("/:id/notes", noteRouter);
 
 ticketRouter
   .route("/")
