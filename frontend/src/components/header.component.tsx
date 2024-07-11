@@ -20,7 +20,7 @@ export default function HeaderComponent() {
   return (
     <header className="header">
       <div className="logo">
-        <Link to="/">Support Desk</Link>
+        <Link to="/">Central de ajuda</Link>
       </div>
 
       <ul>

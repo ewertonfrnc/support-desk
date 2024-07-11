@@ -17,7 +17,7 @@ export default function NewTicketComponent(props: Props) {
 
   const { user } = useAppSelector((state) => state.auth);
   const { isLoading, isError, isSuccess, message } = useAppSelector(
-    (state) => state.ticket,
+    (state) => state.tickets,
   );
 
   const [name] = useState(user.user.name);
@@ -43,7 +43,6 @@ export default function NewTicketComponent(props: Props) {
     }
 
     dispatch(reset());
-    console.log({ isError, isSuccess, isLoading });
   }, [isError, isSuccess, message, dispatch, navigate]);
 
   if (isLoading) return <SpinnerComponent />;
