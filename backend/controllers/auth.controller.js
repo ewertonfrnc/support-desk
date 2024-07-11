@@ -18,13 +18,13 @@ exports.register = asyncHandler(async (request, response) => {
 
   if (!name || !email || !password) {
     response.status(400);
-    throw new Error("Please include all fields");
+    throw new Error("Por favor, preencha todos os campos!");
   }
 
   const userExists = await User.findOne({ where: { email } });
   if (userExists) {
     response.status(400);
-    throw new Error("User already exists");
+    throw new Error("Este usuário já existe!");
   }
 
   const salt = await bcrypt.genSalt(12);
@@ -38,7 +38,7 @@ exports.register = asyncHandler(async (request, response) => {
 
   if (!user) {
     response.status(400);
-    throw new Error("Invalid user data");
+    throw new Error("Dados inválidos");
   }
 
   response.status(201).json({
@@ -57,8 +57,9 @@ exports.register = asyncHandler(async (request, response) => {
 // @access  public
 exports.login = asyncHandler(async (request, response) => {
   const { email, password } = request.body;
+  console.log(request.body);
 
-  const user = await User.findOne({ where: { email } });
+  const user = await User.scope("withPassword").findOne({ where: { email } });
 
   if (user && (await bcrypt.compare(password, user.password))) {
     response.status(200).json({
@@ -72,7 +73,7 @@ exports.login = asyncHandler(async (request, response) => {
     });
   } else {
     response.status(401);
-    throw new Error("Invalid credentials");
+    throw new Error("Credenciais inválidas!");
   }
 });
 
