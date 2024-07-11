@@ -7,6 +7,7 @@ const sequelize = require("./database/db.config");
 const errorMiddleware = require("./middleware/error.middleware");
 
 const userRouter = require("./routes/user.route");
+const ticketRouter = require("./routes/ticket.route");
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/tickets", ticketRouter);
 
 app.use(errorMiddleware.errorHandler);
 

@@ -6,13 +6,13 @@ import { toast } from "react-toastify";
 
 import SpinnerComponent from "../components/spinner.component";
 
-import { useSelector, useDispatch } from "react-redux";
 import { register, reset } from "../features/auth/auth.slice";
+import { useAppDispatch, useAppSelector } from "../app/hooks.ts";
 
 export default function RegisterComponent() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { user, isLoading, isSuccess, isError, message } = useSelector(
+  const dispatch = useAppDispatch();
+  const { user, isLoading, isSuccess, isError, message } = useAppSelector(
     (state) => state.auth,
   );
 
@@ -54,7 +54,7 @@ export default function RegisterComponent() {
     }
 
     dispatch(reset());
-  }, [isError, isSuccess, user, message]);
+  }, [isError, isSuccess, user, message, dispatch, navigate]);
 
   if (isLoading) return <SpinnerComponent />;
 

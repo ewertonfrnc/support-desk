@@ -1,7 +1,11 @@
 import api from "../../service";
+import {
+  LoginPayload,
+  RegisterPayload,
+} from "../../interfaces/auth.interface.ts";
 
 class authService {
-  async register(user) {
+  async register(user: RegisterPayload) {
     const response = await api().post("/users/register", user);
 
     if (response.data)
@@ -10,7 +14,7 @@ class authService {
     return response.data;
   }
 
-  async login(user) {
+  async login(user: LoginPayload) {
     const response = await api().post("/users/login", user);
 
     if (response.data)

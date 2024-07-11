@@ -4,16 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
 
-import { useDispatch, useSelector } from "react-redux";
 import { login, reset } from "../features/auth/auth.slice.ts";
 
 import SpinnerComponent from "../components/spinner.component.tsx";
+import { useAppDispatch, useAppSelector } from "../app/hooks.ts";
 
 export default function LoginComponent() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { user, isSuccess, isLoading, isError, message } = useSelector(
+  const { user, isSuccess, isLoading, isError, message } = useAppSelector(
     (state) => state.auth,
   );
 
