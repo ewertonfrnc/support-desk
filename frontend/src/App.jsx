@@ -1,18 +1,17 @@
-import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import HeaderComponent from "./components/header.component.tsx";
+import HeaderComponent from "./components/header.component";
 
-import HomeComponent from "./pages/home.component.tsx";
-import RegisterComponent from "./pages/register.component.tsx";
-import LoginComponent from "./pages/login.component.tsx";
-import NewTicketComponent from "./pages/new-ticket.component.tsx";
-import PrivateRouteComponent from "./components/private-route.component.tsx";
-import TicketsComponent from "./pages/tickets.component.tsx";
-import TicketComponent from "./pages/ticket.component.tsx";
+import HomeComponent from "./pages/home.component";
+import RegisterComponent from "./pages/register.component";
+import LoginComponent from "./pages/login.component";
+import NewTicketComponent from "./pages/new-ticket.component";
+import PrivateRouteComponent from "./components/private-route.component";
+import TicketsComponent from "./pages/tickets.component";
+import TicketComponent from "./pages/ticket.component";
 
 function App() {
   return (
@@ -26,12 +25,12 @@ function App() {
             <Route path="/login" element={<LoginComponent />} />
             <Route path="/register" element={<RegisterComponent />} />
 
-            <Route path="/new-ticket" element={<PrivateRouteComponent />}>
-              <Route path="/new-ticket" element={<NewTicketComponent />} />
-            </Route>
-
             <Route path="/tickets" element={<PrivateRouteComponent />}>
               <Route path="/tickets" element={<TicketsComponent />} />
+            </Route>
+
+            <Route path="/new-ticket" element={<PrivateRouteComponent />}>
+              <Route path="/new-ticket" element={<NewTicketComponent />} />
             </Route>
 
             <Route path="/ticket/:id" element={<PrivateRouteComponent />}>

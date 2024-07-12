@@ -1,20 +1,19 @@
-import React from "react";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSignInAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
 
-import { login, reset } from "../features/auth/auth.slice.ts";
+import { reset, login } from "../features/auth/auth.slice.js";
 
-import SpinnerComponent from "../components/spinner.component.tsx";
-import { useAppDispatch, useAppSelector } from "../app/hooks.ts";
+import SpinnerComponent from "../components/spinner.component.jsx";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function LoginComponent() {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
-  const { user, isSuccess, isLoading, isError, message } = useAppSelector(
+  const { user, isSuccess, isLoading, isError, message } = useSelector(
     (state) => state.auth,
   );
 
@@ -25,14 +24,14 @@ export default function LoginComponent() {
 
   const { email, password } = formValues;
 
-  function onChange(e: ChangeEvent<HTMLInputElement>) {
+  function onChange(e) {
     setFormValues((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   }
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  function onSubmit(e) {
     e.preventDefault();
 
     dispatch(login({ email, password }));

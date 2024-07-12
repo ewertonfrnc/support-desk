@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { useAppSelector } from "../app/hooks.ts";
+import { useSelector } from "react-redux";
 
 export default function useAuthStatus() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [checkingStatus, setCheckingStatus] = useState(true);
 
-  const { user } = useAppSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (user) {
