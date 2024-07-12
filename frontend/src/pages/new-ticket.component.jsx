@@ -1,38 +1,37 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAppSelector } from "../app/hooks.ts";
-import { useAppDispatch } from "../app/hooks.ts";
-
 import { toast } from "react-toastify";
-import { createTicket, reset } from "../features/tickets/ticket.slice.ts";
+import { createTicket, reset } from "../features/tickets/ticket.slice.js";
 
-import SpinnerComponent from "../components/spinner.component.tsx";
-import BackButtonComponent from "../components/back-button.component.tsx";
+import SpinnerComponent from "../components/spinner.component.jsx";
+import BackButtonComponent from "../components/back-button.component.jsx";
+import { useDispatch, useSelector } from "react-redux";
 
-type Props = {};
-export default function NewTicketComponent(props: Props) {
-  const dispatch = useAppDispatch();
+export default function NewTicketComponent() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user } = useAppSelector((state) => state.auth);
-  const { isLoading, isError, isSuccess, message } = useAppSelector(
+  const { user } = useSelector((state) => state.auth);
+  const { isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.tickets,
   );
 
-  const [name] = useState(user.user.name);
-  const [email] = useState(user.user.email);
+  const [name] = useState(user.name);
+  const [email] = useState(user.email);
 
   const [product, setProduct] = useState("iPhone");
   const [description, setDescription] = useState("");
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  function onSubmit(e) {
     e.preventDefault();
 
     dispatch(createTicket({ product, description }));
   }
 
   useEffect(() => {
+    dispatch(reset());
+
     if (isError) {
       toast.error(message);
     }
@@ -41,8 +40,6 @@ export default function NewTicketComponent(props: Props) {
       dispatch(reset());
       navigate("/tickets");
     }
-
-    dispatch(reset());
   }, [isError, isSuccess, message, dispatch, navigate]);
 
   if (isLoading) return <SpinnerComponent />;

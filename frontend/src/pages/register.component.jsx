@@ -1,18 +1,19 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-import SpinnerComponent from "../components/spinner.component";
+import SpinnerComponent from "../components/spinner.component.jsx";
 
-import { register, reset } from "../features/auth/auth.slice";
-import { useAppDispatch, useAppSelector } from "../app/hooks.ts";
+import { register, reset } from "../features/auth/auth.slice.js";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function RegisterComponent() {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const { user, isLoading, isSuccess, isError, message } = useAppSelector(
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isSuccess, isError, message } = useSelector(
     (state) => state.auth,
   );
 
@@ -25,14 +26,14 @@ export default function RegisterComponent() {
 
   const { name, email, password, passwordConfirm } = formValues;
 
-  function onChange(e: ChangeEvent<HTMLInputElement>) {
+  function onChange(e) {
     setFormValues((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   }
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  function onSubmit(e) {
     e.preventDefault();
 
     if (password !== passwordConfirm) {
@@ -48,8 +49,6 @@ export default function RegisterComponent() {
     }
 
     if (isSuccess || user) {
-      console.log("isSuccess", isSuccess);
-      console.log("user", user);
       navigate("/");
     }
 

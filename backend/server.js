@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const colors = require("colors");
 const dotenv = require("dotenv");
 const cors = require("cors");
@@ -37,6 +38,18 @@ app.use("/api/v1/tickets", ticketRouter);
 app.use("/api/v1/notes", noteRouter);
 
 app.use(errorMiddleware.errorHandler);
+
+// Serve frontend
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.get("*", (request, response) => {
+    response.sendFile(__dirname, "../", "frontend", "dist", "index.html");
+  });
+} else {
+  app.get("/", (request, response) => {
+    response.status(200).json({ message: "Bem-vindo à central de ajuda!" });
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, (req, res) => {

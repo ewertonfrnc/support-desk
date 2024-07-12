@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import ticketService from "./ticket.service";
+import ticketService from "./ticket.service.js";
 
 const initialState = {
   tickets: [],
@@ -10,10 +10,10 @@ const initialState = {
   message: "",
 };
 
-export const createTicket = createAsyncThunk<{}>(
+export const createTicket = createAsyncThunk(
   "tickets/create",
   async (ticketData, thunkAPI) => {
-    const token = thunkAPI.getState().auth.user.user.token;
+    const token = thunkAPI.getState().auth.user.token;
 
     try {
       return await ticketService.createTicket(ticketData, token);
@@ -30,10 +30,10 @@ export const createTicket = createAsyncThunk<{}>(
   },
 );
 
-export const getTickets = createAsyncThunk<{}>(
+export const getTickets = createAsyncThunk(
   "tickets/getAll",
   async (_, thunkAPI) => {
-    const token = thunkAPI.getState().auth.user.user.token;
+    const token = thunkAPI.getState().auth.user.token;
 
     try {
       return await ticketService.getTickets(token);
@@ -50,10 +50,10 @@ export const getTickets = createAsyncThunk<{}>(
   },
 );
 
-export const getTicket = createAsyncThunk<{}>(
+export const getTicket = createAsyncThunk(
   "tickets/get",
   async (ticketId, thunkAPI) => {
-    const token = thunkAPI.getState().auth.user.user.token;
+    const token = thunkAPI.getState().auth.user.token;
 
     try {
       return await ticketService.getTicket(ticketId, token);
@@ -70,10 +70,10 @@ export const getTicket = createAsyncThunk<{}>(
   },
 );
 
-export const closeTicket = createAsyncThunk<{}>(
+export const closeTicket = createAsyncThunk(
   "tickets/close",
   async (ticketId, thunkAPI) => {
-    const token = thunkAPI.getState().auth.user.user.token;
+    const token = thunkAPI.getState().auth.user.token;
 
     try {
       return await ticketService.closeTicket(ticketId, token);

@@ -1,10 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-type Props = {
-  ticket: {};
-};
-export default function TicketItemComponent({ ticket }: Props) {
+export default function TicketItemComponent({ ticket }) {
   return (
     <div className="ticket">
       <div>{new Date(ticket.createdAt).toLocaleString("pt-BR")}</div>

@@ -1,4 +1,4 @@
-import api from "../../service";
+import api from "../../service/index.js";
 
 class ticketService {
   async createTicket(ticketData, token) {

@@ -1,11 +1,9 @@
-import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import useAuthStatus from "../hooks/useAuthStatus.tsx";
+import useAuthStatus from "../hooks/useAuthStatus.js";
 
-import SpinnerComponent from "./spinner.component.tsx";
+import SpinnerComponent from "./spinner.component.jsx";
 
-type Props = {};
-export default function PrivateRouteComponent(props: Props) {
+export default function PrivateRouteComponent() {
   const { loggedIn, checkingStatus } = useAuthStatus();
 
   if (checkingStatus) return <SpinnerComponent />;

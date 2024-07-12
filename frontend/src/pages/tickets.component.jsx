@@ -1,24 +1,23 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-import { useAppSelector, useAppDispatch } from "../app/hooks.ts";
-import { getTickets, reset } from "../features/tickets/ticket.slice.ts";
+import { getTickets, reset } from "../features/tickets/ticket.slice.js";
 
-import SpinnerComponent from "../components/spinner.component.tsx";
-import BackButtonComponent from "../components/back-button.component.tsx";
-import TicketItemComponent from "../components/ticket-item.component.tsx";
+import SpinnerComponent from "../components/spinner.component.jsx";
+import BackButtonComponent from "../components/back-button.component.jsx";
+import TicketItemComponent from "../components/ticket-item.component.jsx";
+import { useDispatch, useSelector } from "react-redux";
 
-type Props = {};
-export default function TicketsComponent(props: Props) {
-  const dispatch = useAppDispatch();
+export default function TicketsComponent() {
+  const dispatch = useDispatch();
 
-  const { tickets, isLoading, isSuccess } = useAppSelector(
+  const { tickets, isLoading, isSuccess } = useSelector(
     (state) => state.tickets,
   );
 
   useEffect(() => {
     dispatch(getTickets());
 
-    return (isSuccess: boolean) => {
+    return () => {
       if (isSuccess) dispatch(reset());
     };
   }, [isSuccess]);
